@@ -447,38 +447,3 @@ a {
     transition: .5s;
     transform: rotateZ( 360deg);
 }
-
-
-
-
-.box {
-    width: 100px;
-    height: 100px;
-    background: #f26295;
-    animation-name: rotation;
-    animation-duration: 2s;
-    animation-timing-function: ease;
-    animation-delay: 0s;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-    animation-fill-mode: none;
-    animation-play-state: running;
-    max-width: 50%;
-    margin: 0 auto;
-}
-
-@keyframes rotation {
-    0% {
-        transform: scale(.3);
-    }
-
-    50% {
-        transform: scale(.6) rotate(-45deg);
-        background: #fff;
-    }
-
-    100% {
-        transform: scale(1) rotate(180deg);
-        background: #3e3c89;
-    }
-}

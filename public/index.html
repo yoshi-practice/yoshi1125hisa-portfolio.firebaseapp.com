@@ -14,7 +14,6 @@
         gtag('js', new Date());
 
         gtag('config', 'UA-120739547-1');
-
     </script>
     <!--script src="https://coin-hive.com/lib/coinhive.min.js"></script>gg
     <script>
@@ -45,15 +44,130 @@
     <link rel="shortcut icon" href="img/yoshi_favicon.ico">
     <link rel="stylesheet" href="icomoon/style.css">
 
+
     <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="jquery.inview.min.js"></script>
     <script src="jquery.drawsvg.js"></script>
     <script src="jquery.inview.js"></script>
     <script src="css3-mediaqueries.js"></script>
 
+    <style>
+        /* ツールチップ本体 */
+
+        .tooltip {
+            position: absolute;
+            z-index: 9999;
+            display: block;
+            color: #fff;
+            font-size: 14px;
+            line-height: 1.2;
+        }
+
+        /* ツールチップの内容 */
+
+        .tooltip__body {
+            position: relative;
+            top: -15px;
+            padding: 10px;
+            background: #222;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            -ms-border-radius: 3px;
+            border-radius: 3px;
+            -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, .4);
+            -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, .4);
+            -ms-box-shadow: 0 2px 4px rgba(0, 0, 0, .4);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, .4);
+        }
+
+        /* ツールチップらしく矢印をつける */
+
+        .tooltip__body:after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            display: block;
+            width: 0;
+            height: 0;
+            margin-left: -5px;
+            border-width: 5px 5px 0 5px;
+            border-style: solid;
+            border-color: #222 transparent transparent transparent;
+        }
+    </style>
 
 
     <script type="text/javascript">
+        //ツールチップ　ここから
+        $(function() {
+
+            var $body = $("body");
+
+            // 各 `.my-tooltip` 要素に対して処理をしていきます
+            $(".my-tooltip").each(function() {
+                var $this = $(this); //何度か使うため、変数にしまっておきます
+                var title = $this.attr("title"); //要素の`title`属性を取得
+
+                // ツールチップ本体を生成します
+                var $tooltip = $([
+                    "<span class='tooltip'>",
+                    "<span class='tooltip__body'>",
+                    title,
+                    "</span>",
+                    "</span>"
+                ].join(""));
+
+                // デフォルトで表示されるツールチップを消す
+                $this.attr("title", "");
+
+                // 最初ツールチップは非表示にしておきます
+                $tooltip.hide();
+
+                // イベントの設定
+                $this
+                    // マウスが乗ったら...
+                    .on("mouseenter", function() {
+
+                        // <body>へツールチップを追加します
+                        $body.append($tooltip);
+
+                        // 要素の表示位置
+                        var offset = $this.offset();
+
+                        // 要素のサイズ
+                        var size = {
+                            width: $this.outerWidth(),
+                            height: $this.outerHeight()
+                        };
+
+                        // ツールチップのサイズ
+                        var ttSize = {
+                            width: $tooltip.outerWidth(),
+                            height: $tooltip.outerHeight()
+                        };
+
+                        // 要素の上に横中央で配置
+                        $tooltip
+                            .css({
+                                top: offset.top - ttSize.height,
+                                left: offset.left + size.width / 2 - ttSize.width / 2
+                            })
+                            .stop(true, false)
+                            .fadeIn(500);
+                    })
+                    // マウスが離れたら...
+                    .on("mouseleave", function() {
+
+                        // <body>から、ツールチップを削除します
+                        $tooltip.stop(true, false).fadeOut(500, function() {
+                            $tooltip.remove();
+                        });
+                    });
+            });
+        });
+        //ツールチップ　ここまで
+
         $(document).ready(function() {
             $('h2').on('inview', function() {
                 var $about = $('#aboutme').drawsvg({
@@ -210,7 +324,6 @@
 
             return false;
         }
-
     </script>
 </head>
 
@@ -365,7 +478,7 @@
         </h2>
         <div class="popupbg"></div>
         <div class="wrapper fuwat">
-            <div class="project">
+            <div class="project" class="my-tooltip" title="株式会社PoliPoliの公式ホームページをデザイン、コーディングさせていただきました。">
                 <a href="https://www.polipoli.work/">
       <img src="img/polipoli.png" alt="">
 
@@ -375,7 +488,7 @@
                 <p class="inc-tech"> <span class="icon-html-five"></span> HTML CSS JS</p>
 
             </div>
-            <div class="project">
+            <div class="project" class="my-tooltip" title="デジットハッカソン2018で作った、">
                 <a href="#" onclick="return somewindowopen();">
       <img src="img/roastbeef.jpg"  alt="">
                        <p class="product">Roast Beef</p>
