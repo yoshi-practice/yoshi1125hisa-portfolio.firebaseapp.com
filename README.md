@@ -2,9 +2,9 @@
 This is a portfolio site for corporate publishing.
 
 ## What technology:
-HTML5
-CSS3
-ECMAScript6 (JavaScript)
+- HTML5
+- CSS3
+- ECMAScript6 (JavaScript)
 
 ## Licence
 MIT Licence.
